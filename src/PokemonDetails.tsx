@@ -31,7 +31,7 @@ const PokemonDetails = ({ match }: any) => {
 		});
 
 		axios
-			.get("https://api.craft-demo.net/pokemon/1", {
+			.get(`https://api.craft-demo.net/pokemon/${match.params.pokemonId}`, {
 				headers: {
 					"x-api-key": API_KEY,
 				},

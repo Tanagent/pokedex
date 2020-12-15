@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const MainPage = () => {
     const [pokemon, setPokemon] = useState<Array<any>>([]);
+    const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         let mounted = true;
@@ -27,11 +28,17 @@ const MainPage = () => {
             mounted = false;
         }
     }, []);
-    
+
     return (
         <div className="App">
+            <div className="button-container m-auto pb-5">
+                <button>All</button><button>Bag</button>
+            </div>
+            <input placeholder="Seach Pokemon" type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}></input>
             {
-                pokemon.map((pokemon: any, index: number) => (
+                pokemon.filter((pokemon: any) => 
+                    searchValue === '' || pokemon.data.name.toLowerCase().includes(searchValue)
+                ).map((pokemon: any, index: number) => (
                     <Link to={`/${pokemon.data.id}`} key={index}>
                         <div className="container" >
                             <img src={pokemon.data.sprites.front_default} alt={pokemon.data.name} />
