@@ -24,7 +24,6 @@ const PokemonDetails = ({ match }: any) => {
 	});
 
 	useEffect(() => {
-		console.log("match", match);
 		const url = `https://pokeapi.co/api/v2/pokemon/${match.params.pokemonId}`;
 		const API_KEY = "HHko9Fuxf293b3w56zAJ89s3IcO9D5enaEPIg86l";
 		axios.get(url).then((res) => {
@@ -38,9 +37,8 @@ const PokemonDetails = ({ match }: any) => {
 				},
 			})
 			.then((res) => {
-                console.log("locations", res.data.locations);
                 var arr: Array<any> = [];
-                res.data.locations.map((location: string) => {
+                res.data.locations.forEach((location: string) => {
                     var coordinates = location.split(',');
                     arr.push({
                         lat: parseFloat(coordinates[0]),
@@ -49,48 +47,8 @@ const PokemonDetails = ({ match }: any) => {
                 })
 
                 setLoc(arr);
-
-                console.log('arr', arr);
 			});
 	}, [match]);
-
-	const locations = [
-		{
-			name: "Location 1",
-			location: {
-				lat: 41.3954,
-				lng: 2.162,
-			},
-		},
-		{
-			name: "Location 2",
-			location: {
-				lat: 41.3917,
-				lng: 2.1649,
-			},
-		},
-		{
-			name: "Location 3",
-			location: {
-				lat: 41.3773,
-				lng: 2.1585,
-			},
-		},
-		{
-			name: "Location 4",
-			location: {
-				lat: 41.3797,
-				lng: 2.1682,
-			},
-		},
-		{
-			name: "Location 5",
-			location: {
-				lat: 41.4055,
-				lng: 2.1915,
-			},
-		},
-	];
 
 	return (
 		<div>
@@ -110,7 +68,7 @@ const PokemonDetails = ({ match }: any) => {
 			{items.abilities.map((ability: any, index: number) => (
 				<div key={index}>{ability.ability.name}</div>
 			))}
-			<LoadScript googleMapsApiKey="AIzaSyBEKWkaTP_dQ_9gCaA3Eg8-2A0iYwixaOU">
+			<LoadScript googleMapsApiKey={process.env.REACT_APP_API_URL || ''}>
 				<GoogleMap
 					mapContainerStyle={mapStyles}
 					zoom={10}
