@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import PokemonContainer from './PokemonContainer';
+import { PokemonContext } from './PokemonContext';
 import axios from 'axios';
 
+interface IPokemon {
+    name: string
+}
+
 const MainPage = () => {
-    const [pokemon, setPokemon] = useState<Array<any>>([]);
+    const { bag } = useContext(PokemonContext);
+    const [showAll, setShowAll] = useState(true);
+    const [pokemon, setPokemon] = useState<Array<IPokemon>>([]);
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
@@ -18,9 +25,8 @@ const MainPage = () => {
             const url = `https://pokeapi.co/api/v2/pokemon/${id}`
             const pokemon = await axios.get(url);
             if(mounted) 
-                setPokemon(item => [...item, pokemon]);
+                setPokemon(item => [...item, pokemon.data]);
         }
-
         
         fetchPokemon();
         
@@ -32,19 +38,20 @@ const MainPage = () => {
     return (
         <div className="App">
             <div className="button-container m-auto pb-5">
-                <button>All</button><button>Bag</button>
+                <button onClick={() => setShowAll(true)}>All</button><button onClick={() => setShowAll(false)}>Bag</button>
             </div>
             <input placeholder="Seach Pokemon" type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}></input>
             {
-                pokemon.filter((pokemon: any) => 
-                    searchValue === '' || pokemon.data.name.toLowerCase().includes(searchValue)
+                (showAll ? pokemon : bag).filter((pokemon: IPokemon) => 
+                    searchValue === '' || pokemon.name.toLowerCase().includes(searchValue)
                 ).map((pokemon: any, index: number) => (
-                    <Link to={`/${pokemon.data.id}`} key={index}>
-                        <div className="container" >
-                            <img src={pokemon.data.sprites.front_default} alt={pokemon.data.name} />
-                            <div>{pokemon.data.name}</div>
-                        </div>
-                    </Link>
+                    <div key={index}>
+                        {
+                            showAll ? <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.sprites.front_default} /> :
+                            <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.img} />
+                        
+                        }
+                    </div>
                 ))
             }
         </div>
