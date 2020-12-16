@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { PokemonContext } from './PokemonContext';
 import MapContainer from "./MapContainer";
+import PokemonContainer from "./PokemonContainer";
+import PokemonInfo from "./PokemonInfo";
+import './PokemonDetails.css';
 
 const PokemonDetails = ({ match }: any) => {
-	const { bag, setBag } = useContext(PokemonContext);
     const [loc, setLoc] = useState<Array<any>>([]);
 	const [items, setItems] = useState({
 		id: "",
@@ -42,34 +43,13 @@ const PokemonDetails = ({ match }: any) => {
 			});
 	}, [match]);
 
-	const toggleCheckboxChange = (event: any) => {
-		if(event.target.checked) {
-			setBag(list => [...list, {id: items.id, name: items.name, img: items.sprites.front_default}]);
-		} else {
-			setBag(bag.filter(x => x.id !== items.id))
-		}
-	}
-
 	return (
-		<div>
-			<div>{items.name}</div>
-			<img
-				src={items.sprites.front_default}
-				alt={items.sprites.front_default}
-			/>
-			<div>
-				height: {items.height}
-				weight: {items.weight}
+		<div className="pokemon-details">
+			<div className="pokemon-info">
+				<PokemonContainer id={items.id} name={items.name} img={items.sprites.front_default} />
+				<PokemonInfo id={items.id} name={items.name} height={items.height} weight={items.weight} types={items.types} abilities={items.abilities} img={items.sprites.front_default} />
 			</div>
-			<div>MOCK TEXT</div>
-			<input type="checkbox" checked={bag.some(pokemon => pokemon.id === items.id)} onChange={toggleCheckboxChange} />
-			{items.types.map((type: any, index: number) => (
-				<div key={index}>{type.type.name}</div>
-			))}
-			{items.abilities.map((ability: any, index: number) => (
-				<div key={index}>{ability.ability.name}</div>
-			))}
-			<MapContainer loc={loc}/>
+			<MapContainer className="pokemon-map" loc={loc}/>
 		</div>
 	);
 };

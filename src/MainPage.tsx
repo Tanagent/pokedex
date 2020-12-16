@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PokemonContainer from './PokemonContainer';
 import { PokemonContext } from './PokemonContext';
+import './MainPage.css';
 import axios from 'axios';
 
 interface IPokemon {
@@ -36,11 +37,12 @@ const MainPage = () => {
     }, []);
 
     return (
-        <div className="App">
+        <div>
             <div className="button-container m-auto pb-5">
-                <button onClick={() => setShowAll(true)}>All</button><button onClick={() => setShowAll(false)}>Bag</button>
+                <button className='all-btn' onClick={() => setShowAll(true)}>All</button><button className='bag-btn' onClick={() => setShowAll(false)}>Bag</button>
+                {!showAll && <button className='save-btn'>Save</button>}
             </div>
-            <input placeholder="Seach Pokemon" type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}></input>
+            <input placeholder="Seach" type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}></input>
             {
                 (showAll ? pokemon : bag).filter((pokemon: IPokemon) => 
                     searchValue === '' || pokemon.name.toLowerCase().includes(searchValue)
@@ -49,9 +51,9 @@ const MainPage = () => {
                         {
                             showAll ? <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.sprites.front_default} /> :
                             <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.img} />
-                        
                         }
                     </div>
+
                 ))
             }
         </div>

@@ -1,0 +1,13 @@
+.pokemon-details {
+    display: flex;
+    justify-content: center;
+}
+
+.pokemon-info {
+    padding: 25px;
+    float: left;
+}
+
+.pokemon-map {
+    float: right;
+}

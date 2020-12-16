@@ -1,0 +1,20 @@
+.all-btn {
+    background-color: #FFCB05;
+    height: 30px;
+	width: 90px;
+	font-size: large;
+}
+
+.bag-btn {
+    background-color: #3D7DCA;
+    height: 30px;
+	width: 90px;
+	font-size: large;
+}
+
+.save-btn {
+    background-color: green;
+    height: 30px;
+	width: 90px;
+	font-size: large;
+}

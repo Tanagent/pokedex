@@ -1,0 +1,28 @@
+.pokemon-container {
+    position: relative;
+    border: 3px solid black;
+    width: 200px;
+    height: 200px;
+}
+
+.pokemon-img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pokemon-name {
+    align-items: center;
+    vertical-align: middle;
+    position: absolute;
+    bottom: 0;
+    height: 20px;
+    width: 100%;
+    text-align: center;
+    background-color: #3A3A3A;
+    color: white;
+    font-family: 'Fira Sans', sans-serif;
+    padding-top: 5px;
+}
