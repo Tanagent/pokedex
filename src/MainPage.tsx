@@ -9,7 +9,7 @@ interface IPokemon {
 }
 
 const MainPage = () => {
-    const { bag } = useContext(PokemonContext);
+    const { bag, setBag } = useContext(PokemonContext);
     const [showAll, setShowAll] = useState(true);
     const [pokemon, setPokemon] = useState<Array<IPokemon>>([]);
     const [searchValue, setSearchValue] = useState('');
@@ -39,25 +39,30 @@ const MainPage = () => {
     }, []);
 
     return (
-        <div>
-            <div className="button-container m-auto pb-5">
+        <div style={{width: "100%"}}>
+            <div className="btn-container">
                 <button className='all-btn' onClick={() => setShowAll(true)}>All</button><button className='bag-btn' onClick={() => setShowAll(false)}>Bag</button>
-                {!showAll && <button className='save-btn'>Save</button>}
+                {!showAll && <div><button className='save-btn'>Save</button><button className='clear-btn' onClick={() => setBag([])}>Clear</button></div>}
             </div>
-            <input placeholder="Seach" type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}></input>
-            {
-                (showAll ? pokemon : bag).filter((pokemon: IPokemon) => 
-                    searchValue === '' || pokemon.name.toLowerCase().includes(searchValue)
-                ).map((pokemon: any, index: number) => (
-                    <div key={index}>
-                        {
-                            showAll ? <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.sprites.front_default} /> :
-                            <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.img} />
-                        }
-                    </div>
+            <div>
+                <input className="search-field" placeholder="Seach" type="text" value={searchValue} onChange={(event) => setSearchValue(event.target.value)} />
+            </div>
+            
+            <div className="grid-container">
+                {
+                    (showAll ? pokemon : bag).filter((pokemon: IPokemon) => 
+                        searchValue === '' || pokemon.name.toLowerCase().includes(searchValue)
+                    ).map((pokemon: any, index: number) => (
+                        <div key={index}>
+                            {
+                                showAll ? <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.sprites.front_default} /> :
+                                <PokemonContainer id={pokemon.id} name={pokemon.name} img={pokemon.img} />
+                            }
+                        </div>
 
-                ))
-            }
+                    ))
+                }
+            </div>
         </div>
     );
 }

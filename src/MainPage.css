@@ -1,20 +1,54 @@
+.btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
 .all-btn {
     background-color: #FFCB05;
     height: 30px;
 	width: 90px;
-	font-size: large;
+    font-size: large;
+    margin: 5px;
 }
 
 .bag-btn {
     background-color: #3D7DCA;
     height: 30px;
 	width: 90px;
-	font-size: large;
+    font-size: large;
+    margin: 5px;
 }
 
 .save-btn {
     background-color: green;
     height: 30px;
 	width: 90px;
-	font-size: large;
+    font-size: large;
+    margin: 5px;
+}
+
+.clear-btn {
+    background-color: rgb(180, 48, 180);
+    height: 30px;
+	width: 90px;
+    font-size: large;
+    margin: 5px;
+}
+
+.search-field {
+    margin: auto;
+    display: block;
+    width: 500px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 400px);
+    gap: 50px;
 }
