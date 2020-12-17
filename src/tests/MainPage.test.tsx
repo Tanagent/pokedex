@@ -62,26 +62,25 @@ describe('MainPage', () => {
         //console.log('images', images);
 
         // // mock axios promise
-        let wrapper = mount(<MainPage />);
-        await act(async () => {
-            await mockAxios.get.mockImplementationOnce(() => Promise.resolve({
-                data: {
-                    id: 132,
-                    name: "ditto",
-                    sprites: {
-                        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
-                    }
-                }
-            }));
-            wrapper = mount(<MainPage />);
-        });
+        // let wrapper = mount(<MainPage />);
+        // await act(async () => {
+        //     await mockAxios.get.mockImplementationOnce(() => Promise.resolve({
+        //         data: {
+        //             id: 132,
+        //             name: "ditto",
+        //             sprites: {
+        //                 front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
+        //             }
+        //         }
+        //     }));
+        //     wrapper = mount(<MainPage />);
+        // });
   
         // check the render output
-        wrapper.update();
+        // wrapper.update();
 
-        const tree = renderer
-        .create(<MainPage />);
-        await Promise.resolve();
-        expect(tree.toJSON()).toMatchSnapshot();
+        // const tree = renderer
+        // .create(<MainPage />);
+        // await Promise.resolve();
     })
 })
