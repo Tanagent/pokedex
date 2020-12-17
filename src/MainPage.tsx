@@ -15,24 +15,26 @@ const MainPage = () => {
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-        let mounted = true;
-        const fetchPokemon = async () => {
-            for(let i = 1; i <= 151; i++) {
-                await getPokemon(i);
+        if (pokemon === undefined || pokemon.length === 0) {
+            let mounted = true;
+            const fetchPokemon = async () => {
+                for(let i = 1; i <= 151; i++) {
+                    await getPokemon(i);
+                }
             }
-        }
 
-        const getPokemon = async (id: number) => {
-            const url = `https://pokeapi.co/api/v2/pokemon/${id}`
-            const pokemon = await axios.get(url);
-            if(mounted) 
-                setPokemon(item => [...item, pokemon.data]);
-        }
-        
-        fetchPokemon();
-        
-        return () => {
-            mounted = false;
+            const getPokemon = async (id: number) => {
+                const url = `https://pokeapi.co/api/v2/pokemon/${id}`
+                const pokemon = await axios.get(url);
+                if(mounted) 
+                    setPokemon(item => [...item, pokemon.data]);
+            }
+            
+            fetchPokemon();
+            
+            return () => {
+                mounted = false;
+            }
         }
     }, []);
 
